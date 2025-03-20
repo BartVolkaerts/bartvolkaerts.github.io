@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bart Volkaerts</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            flex-direction: column;
+        }
+        
+        #title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 20px;
+            position: relative;
+            top: 10px;
+        }
+
+        #image-container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        img {
+            width: 700px;
+            height: auto;
+            display: none;
+        }
+        
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: floatUp 6s linear infinite;
+        }
+        
+        @keyframes floatUp {
+            from {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="title">Bart Volkaerts</div>
+<!--
+    <div id="image-container">
+        <img src="image1.jpg" alt="Image 1" class="slide" style="display: block;">
+        <img src="image2.jpg" alt="Image 2" class="slide">
+        <img src="image3.jpg" alt="Image 3" class="slide">
+    </div>
+-->
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+            
+            // Randomize position
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.fontSize = Math.random() * 30 + 10 + "px";
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 200);
+
+        // Slideshow logic
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll(".slide");
+        
+        function showNextImage() {
+            images[currentImageIndex].style.display = "none";
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            images[currentImageIndex].style.display = "block";
+        }
+
+        setInterval(showNextImage, 3000); // Change image every 3 seconds
+    </script>
+</body>
+</html>
